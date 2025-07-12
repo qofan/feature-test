@@ -1,0 +1,48 @@
+<html>
+<body></body>
+<script>
+const supported = (() => {
+  try {
+    if (typeof WebAssembly === 'object' && typeof WebAssembly.instantiate === 'function') {
+	  const module = new WebAssembly.Module(
+	    Uint8Array.of(0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00),
+	  );
+	  if (module instanceof WebAssembly.Module) {
+	    return new WebAssembly.Instance(module) instanceof WebAssembly.Instance;
+	  }
+	}
+  } catch(e) {}
+  return false;
+})();
+
+console.log('===supported', supported);
+document.writeln(`===step0 supported: ${supported}<br/>`);
+
+let result = false;
+try {
+    const tpWebAssembly = typeof WebAssembly;
+	const tpWebAssemblyInst = typeof WebAssembly.instantiate;
+    if (tpWebAssembly === 'object' && tpWebAssemblyInst === 'function') {
+	  const module = new WebAssembly.Module(
+	    Uint8Array.of(0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00),
+	  );
+	  if (module instanceof WebAssembly.Module) {
+	    result = new WebAssembly.Instance(module) instanceof WebAssembly.Instance;
+		if (!result) {
+		  document.writeln(`===step1 false<br/>`);
+		}
+	  } else {
+	    document.writeln(`===step2 false<br/>`);
+	  }
+	} else {
+      document.writeln(`===typeof WebAssembly: ${tpWebAssembly}<br/>`);
+      document.writeln(`===typeof WebAssembly.instantiate: ${tpWebAssemblyInst}<br/>`);
+	}
+} catch(e) {
+    console.log('==catch error', e);
+    document.writeln(`===catch error: ${e}<br/>`);
+}
+console.log('===result', result);
+document.writeln(`===step3 result: ${result}<br/>`);
+</script>
+</html>
