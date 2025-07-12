@@ -1,6 +1,15 @@
 <html>
 <body></body>
 <script>
+if (navigator.mediaDevices) {
+	const tpGetUserMedia = typeof navigator.mediaDevices.getUserMedia;
+	console.log('===typeof getUserMedia', tpGetUserMedia);
+	document.writeln(`===step0 typeof getUserMedia: ${tpGetUserMedia}<br/>`);
+} else {
+	console.log('===navigator.mediaDevices', navigator.mediaDevices);
+	document.writeln(`===step0 navigator.mediaDevices: ${navigator.mediaDevices}<br/>`);
+}
+
 const supported = (() => {
   try {
     if (typeof WebAssembly === 'object' && typeof WebAssembly.instantiate === 'function') {
